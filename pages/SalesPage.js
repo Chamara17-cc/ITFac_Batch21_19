@@ -8,8 +8,18 @@ class SalesPage {
     this.sellPlantButton = page.locator('a[href="/ui/sales/new"]');
     this.deleteButtons = page.locator('form[action^="/ui/sales/delete"] button');
     this.soldAtCells = page.locator('table tbody tr td:nth-child(4)');
+
+    // Pagination
+    this.paginationItems = page.locator('ul.pagination li.page-item');
+    this.nextButton = page.locator('ul.pagination li >> text=Next');
+    this.prevButton = page.locator('ul.pagination li >> text=Previous');
   }
 
+  // Dynamic getters
+
+  get tableRows() {
+    return this.page.locator('table tbody tr');
+  }
 
 
   async goto() {
@@ -35,6 +45,26 @@ class SalesPage {
     async getSoldAtDates() {
     const texts = await this.soldAtCells.allTextContents();
     return texts.map(t => new Date(t.replace(' ', 'T')));
+  }
+
+// Pagination methods
+
+async getRowCount() {
+    return await this.tableRows.count();
+  }
+
+  async goToNextPage() {
+    if (await this.nextButton.isEnabled()) {
+      await this.nextButton.click();
+      await this.page.waitForLoadState('networkidle');
+    }
+  }
+
+  async goToPrevPage() {
+    if (await this.prevButton.isEnabled()) {
+      await this.prevButton.click();
+      await this.page.waitForLoadState('networkidle');
+    }
   }
 
 }
