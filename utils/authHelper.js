@@ -13,8 +13,8 @@ async function loginAsAdmin(page) {
 async function loginAsUser(page) {
   const loginPage = new LoginPage(page);
   await loginPage.open();
-  
-  // ✅ Correct credentials
+
+  // ✅ Correct user credentials
   await loginPage.login('testuser', 'test123');
 
   // Verify login did NOT fail
