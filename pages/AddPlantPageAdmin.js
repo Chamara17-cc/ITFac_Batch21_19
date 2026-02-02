@@ -1,4 +1,3 @@
-// pages/AddPlantPageAdmin.js
 import { expect } from '@playwright/test';
 
 export class AddPlantPageAdmin {
@@ -21,9 +20,15 @@ export class AddPlantPageAdmin {
     this.categoryError = page.locator('text=Category is required');
     this.priceError = page.locator('text=Price is required');
     this.quantityError = page.locator('text=Quantity is required');
+
+    // ✅ Price > 0 validation
+   // Price validation error (EXACT match)
+this.priceGreaterThanZeroError = page.locator(
+  'text=Price must be greater than 0'
+);
+
   }
 
-  // Open Add Plant page
   async open() {
     await this.page.goto(this.url);
     await this.page.waitForLoadState('networkidle');
@@ -31,12 +36,10 @@ export class AddPlantPageAdmin {
     await expect(this.nameInput).toBeVisible();
   }
 
-  // Click Save
   async clickSave() {
     await this.saveButton.click();
   }
 
-  // Fill basic details (all fields optional, can pass specific values)
   async fillBasicDetails({
     name = '',
     categoryIndex = 1,
@@ -49,9 +52,6 @@ export class AddPlantPageAdmin {
     if (quantity) await this.quantityInput.fill(quantity);
   }
 
-  // ✅ Error checks
-
-  // Mandatory field errors
   async expectAllMandatoryErrors() {
     await expect(this.nameRequiredError).toBeVisible();
     await expect(this.categoryError).toBeVisible();
@@ -59,17 +59,21 @@ export class AddPlantPageAdmin {
     await expect(this.quantityError).toBeVisible();
   }
 
-  // Plant name length error (<3 or >25)
   async expectPlantNameLengthError() {
     await expect(this.nameLengthError).toBeVisible();
   }
 
-  // Optional: ensure no errors visible (for valid entries)
+  // ✅ NEW (for UI-ADMIN-AP-04)
+  async expectPriceError() {
+  await expect(this.priceGreaterThanZeroError).toBeVisible();
+}
+
   async expectNoErrors() {
     await expect(this.nameRequiredError).toHaveCount(0);
     await expect(this.nameLengthError).toHaveCount(0);
     await expect(this.categoryError).toHaveCount(0);
     await expect(this.priceError).toHaveCount(0);
     await expect(this.quantityError).toHaveCount(0);
+    await expect(this.priceGreaterThanZeroError).toHaveCount(0);
   }
 }
