@@ -1,46 +1,75 @@
-// Plant Page Admin (UI)
+// pages/AddPlantPageAdmin.js
+import { expect } from '@playwright/test';
 
-class AddPlantPage {
+export class AddPlantPageAdmin {
   constructor(page) {
     this.page = page;
+    this.url = 'http://localhost:8080/ui/plants/add';
 
-    // Form fields
-    this.plantName = page.locator('#name');
-    this.category  = page.locator('#categoryId');
-    this.price     = page.locator('#price');
-    this.quantity  = page.locator('#quantity');
+    // Inputs
+    this.nameInput = page.locator('//label[normalize-space()="Plant Name"]/following::input[1]');
+    this.priceInput = page.locator('//label[normalize-space()="Price"]/following::input[1]');
+    this.quantityInput = page.locator('//label[normalize-space()="Quantity"]/following::input[1]');
+    this.categorySelect = page.locator('select');
 
-    // Buttons
-    this.saveBtn   = page.getByRole('button', { name: 'Save' });
-    this.cancelBtn = page.getByRole('link', { name: 'Cancel' });
+    // Save button
+    this.saveButton = page.locator('button.btn.btn-primary', { hasText: 'Save' });
 
-    // Success message
-    this.successMessage = page.locator('.toast-success');
+    // Validation messages
+    this.nameRequiredError = page.locator('text=Plant name is required');
+    this.nameLengthError = page.locator('text=Plant name must be between 3 and 25 characters');
+    this.categoryError = page.locator('text=Category is required');
+    this.priceError = page.locator('text=Price is required');
+    this.quantityError = page.locator('text=Quantity is required');
   }
 
   // Open Add Plant page
   async open() {
-    await this.page.goto('/ui/plants/add');
+    await this.page.goto(this.url);
+    await this.page.waitForLoadState('networkidle');
+    await expect(this.saveButton).toBeVisible();
+    await expect(this.nameInput).toBeVisible();
   }
 
-  // Add plant with details
-  async addPlant(name, categoryLabel, price, quantity) {
-    // Fill plant name
-    await this.plantName.fill(name);
+  // Click Save
+  async clickSave() {
+    await this.saveButton.click();
+  }
 
-    // ✅ Wait until the category option exists
-    await this.category.locator('option', { hasText: categoryLabel }).waitFor();
+  // Fill basic details (all fields optional, can pass specific values)
+  async fillBasicDetails({
+    name = '',
+    categoryIndex = 1,
+    price = '',
+    quantity = ''
+  } = {}) {
+    if (name) await this.nameInput.fill(name);
+    if (categoryIndex) await this.categorySelect.selectOption({ index: categoryIndex });
+    if (price) await this.priceInput.fill(price);
+    if (quantity) await this.quantityInput.fill(quantity);
+  }
 
-    // Select category by visible label
-    await this.category.selectOption({ label: categoryLabel });
+  // ✅ Error checks
 
-    // Fill price and quantity
-    await this.price.fill(price.toString());
-    await this.quantity.fill(quantity.toString());
+  // Mandatory field errors
+  async expectAllMandatoryErrors() {
+    await expect(this.nameRequiredError).toBeVisible();
+    await expect(this.categoryError).toBeVisible();
+    await expect(this.priceError).toBeVisible();
+    await expect(this.quantityError).toBeVisible();
+  }
 
-    // Click Save
-    await this.saveBtn.click();
+  // Plant name length error (<3 or >25)
+  async expectPlantNameLengthError() {
+    await expect(this.nameLengthError).toBeVisible();
+  }
+
+  // Optional: ensure no errors visible (for valid entries)
+  async expectNoErrors() {
+    await expect(this.nameRequiredError).toHaveCount(0);
+    await expect(this.nameLengthError).toHaveCount(0);
+    await expect(this.categoryError).toHaveCount(0);
+    await expect(this.priceError).toHaveCount(0);
+    await expect(this.quantityError).toHaveCount(0);
   }
 }
-
-module.exports = { AddPlantPage };
