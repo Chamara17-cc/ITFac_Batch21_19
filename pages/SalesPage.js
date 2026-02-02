@@ -1,23 +1,13 @@
 class SalesPage {
+
+
   constructor(page) {
     this.page = page;
-
-    // Page title
     this.pageTitle = page.locator('h1, h2, .sales, .Sales').first();
-
-    // No sales message
-    this.noSalesMessage = page.locator(
-      'table tbody tr td[colspan="5"]'
-    );
-    // Sell Plant button
-    this.sellPlantButton = page.locator(
-      'a[href="/ui/sales/new"]'
-    );
-    // Delete buttons
-      this.deleteButtons = page.locator(
-      'form[action^="/ui/sales/delete"] button'
-    );
-
+    this.noSalesMessage = page.locator('table tbody tr td[colspan="5"]');
+    this.sellPlantButton = page.locator('a[href="/ui/sales/new"]');
+    this.deleteButtons = page.locator('form[action^="/ui/sales/delete"] button');
+    this.soldAtCells = page.locator('table tbody tr td:nth-child(4)');
   }
 
 
@@ -42,6 +32,10 @@ class SalesPage {
     await this.deleteButtons.first().waitFor({ timeout: 5000 });
   }
 
+    async getSoldAtDates() {
+    const texts = await this.soldAtCells.allTextContents();
+    return texts.map(t => new Date(t.replace(' ', 'T')));
+  }
 
 }
 
