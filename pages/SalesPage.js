@@ -13,12 +13,14 @@ class SalesPage {
     this.sellPlantButton = page.locator(
       'a[href="/ui/sales/new"]'
     );
+    // Delete buttons
+      this.deleteButtons = page.locator(
+      'form[action^="/ui/sales/delete"] button'
+    );
 
   }
 
 
-
-  
 
   async goto() {
     await this.page.goto('/ui/sales');
@@ -34,6 +36,10 @@ class SalesPage {
 
   async verifySellPlantButtonVisible() {
     await this.sellPlantButton.waitFor({ timeout: 5000 });
+  }
+
+    async verifyDeleteButtonVisible() {
+    await this.deleteButtons.first().waitFor({ timeout: 5000 });
   }
 
 
