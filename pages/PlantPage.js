@@ -16,7 +16,10 @@ class PlantPage {
 
   async open() {
     await this.page.goto(this.url);
-    await this.tableRows.first().waitFor();
+    await this.page.waitForLoadState('networkidle'); // ensure page fully loaded
+    if ((await this.tableRows.count()) > 0) {
+      await this.tableRows.first().waitFor({ state: 'visible' });
+    }
   }
 
   async getPlantCount() {
