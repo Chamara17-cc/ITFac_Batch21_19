@@ -7,7 +7,7 @@ class PlantPageAdmin {
     this.addPlantBtn = page.getByRole('link', { name: /add\s*a\s*plant/i });
     this.editBtn = page.locator('a[title="Edit"]').first();
     this.deleteBtn = page.locator('form[action*="/plants/delete"] button').first();
-    this.cancelBtn = page.getByRole('button', { name: 'Cancel' });
+    this.cancelBtn = page.getByRole('link', { name: 'Cancel' });
   }
 
   get saveBtn() {

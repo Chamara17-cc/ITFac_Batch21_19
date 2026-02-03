@@ -9,7 +9,7 @@ module.exports = defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
-
+  workers: 1,   
   retries: 1,
   timeout: 30 * 1000,
 });
