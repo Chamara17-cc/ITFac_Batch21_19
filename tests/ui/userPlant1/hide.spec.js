@@ -2,8 +2,8 @@
 
 const { test, expect } = require('@playwright/test');
 const { PlantPageUser } = require('../../../pages/PlantPageUser');
-const { loginAsUser } = require('../../../utils/authHelper');
 
+const { loginAsUser } = require('../../../utils/authHelper');
 test('UI-USER-PLANT-06 | Hide edit and delete actions for user', async ({ page }) => {
   
   // Precondition: user logged in

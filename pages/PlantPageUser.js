@@ -9,7 +9,7 @@ class PlantPageUser {
     this.plantNameCells = page.locator('table tbody tr td:nth-child(1)');
 
     // Price column (new)
-    this.priceColumnHeader = page.getByRole('columnheader', { name: 'Price' });
+    this.priceColumnHeader = page.getByRole('link', { name: 'Price' });
     this.priceColumnCells = page.locator('table tbody tr td:nth-child(3)'); // adjust nth-child if Price column changes
 
     // Actions (hidden for user)
@@ -36,7 +36,7 @@ class PlantPageUser {
   // ✅ Sorting: click Price column header
   async clickPriceColumn() {
     await this.priceColumnHeader.click();
-    await this.priceColumnCells.first().waitFor(); // wait table to update
+    await this.page.waitForLoadState('networkidle');
   }
 
   // ✅ Get plant names from table
