@@ -16,4 +16,3 @@ test('Verify category page loads successfully', async ({ page }) => {
 
     expect(await categotyPage.fetCategoryCount()).toBeGreaterThan(0);
 })
-

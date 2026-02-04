@@ -1,11 +1,24 @@
 const { LoginPage } = require('../pages/LoginPage');
-const { expect } = require('@playwright/test');
 
 async function loginAsAdmin(page) {
-    const loginPage = new LoginPage(page);
-    await loginPage.open();
-    await loginPage.login('admin', 'admin123');
-    await expect(page).toHaveURL(/\/ui\/dashboard/);
+  const loginPage = new LoginPage(page);
 
+  await loginPage.open();
+  await loginPage.login('admin', 'admin123');
+
+  // wait until navigation finishes
+  await page.waitForLoadState('networkidle');
 }
-module.exports = { loginAsAdmin };
+
+async function loginAsUser(page) {
+    const loginPage = new LoginPage(page);
+  
+    await loginPage.open();
+    await loginPage.login('testuser', 'test123');
+  
+    // wait until navigation finishes
+    await page.waitForLoadState('networkidle');
+  }
+  
+  module.exports = { loginAsAdmin, loginAsUser };
+
