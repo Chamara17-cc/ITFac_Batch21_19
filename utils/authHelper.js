@@ -8,4 +8,12 @@ async function loginAsAdmin(page) {
     await expect(page).toHaveURL(/\/ui\/dashboard/);
 
 }
-module.exports = { loginAsAdmin };
+
+async function loginAsUser(page) {
+  const loginPage = new LoginPage(page);
+  await loginPage.open();
+  await loginPage.login('testuser', 'test123');
+  await expect(page).toHaveURL(/\/ui\/dashboard/);
+}
+
+module.exports = { loginAsAdmin , loginAsUser };
