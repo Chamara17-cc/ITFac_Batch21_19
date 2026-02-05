@@ -1,13 +1,12 @@
 const { test, expect } = require('@playwright/test');
 const { SalesPage } = require('../../../pages/SalesPage');
 const { LoginPage } = require('../../../pages/LoginPage');
+const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
 test('Sales page loads successfully (after login)', async ({ page }) => {
 
   // Login step
-  const loginPage = new LoginPage(page);
-  await loginPage.open();
-  await loginPage.login('admin', 'admin123');
+  await loginAsAdmin(page);
 
   // Verify login success
   await expect(page).toHaveURL(/ui\/dashboard/);

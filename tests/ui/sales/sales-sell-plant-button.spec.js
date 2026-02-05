@@ -1,13 +1,11 @@
 const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../../../pages/LoginPage');
 const { SalesPage } = require('../../../pages/SalesPage');
+const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
 test('Verify Sell Plant button visibility for Admin', async ({ page }) => {
 
   // ---- LOGIN AS ADMIN ----
-  const loginPage = new LoginPage(page);
-  await loginPage.open();
-  await loginPage.login('admin', 'admin123');
+  await loginAsAdmin(page);
 
   // ---- GO TO SALES PAGE ----
   const salesPage = new SalesPage(page);

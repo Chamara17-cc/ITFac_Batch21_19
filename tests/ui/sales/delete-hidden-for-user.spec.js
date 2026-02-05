@@ -1,12 +1,11 @@
 const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../../../pages/LoginPage');
 const { SalesPage } = require('../../../pages/SalesPage');
+const { loginAsUser } = require('../sales/helpers/auth.helper');
 
 test('Delete option is hidden for User', async ({ page }) => {
   // ---- LOGIN AS USER ----
-  const loginPage = new LoginPage(page);
-  await loginPage.open();
-  await loginPage.login('testuser', 'test123');
+  await loginAsUser(page);
 
   // ---- GO TO SALES PAGE ----
   const salesPage = new SalesPage(page);

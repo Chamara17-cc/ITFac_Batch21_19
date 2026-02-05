@@ -1,12 +1,11 @@
 const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../../../pages/LoginPage');
 const { SalesPage } = require('../../../pages/SalesPage');
+const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
 test('Sales pagination works when records exceed one page', async ({ page }) => {
   // ---- LOGIN ----
-  const loginPage = new LoginPage(page);
-  await loginPage.open();
-  await loginPage.login('admin', 'admin123');
+  await loginAsAdmin(page);
 
   // ---- GO TO SALES PAGE ----
   const salesPage = new SalesPage(page);

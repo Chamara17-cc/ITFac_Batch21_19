@@ -1,13 +1,11 @@
 const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../../../pages/LoginPage');
 const { SalesPage } = require('../../../pages/SalesPage');
+const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
 test('Verify Delete option is visible for Admin', async ({ page }) => {
 
   // ---- LOGIN ----
-  const loginPage = new LoginPage(page);
-  await loginPage.open();
-  await loginPage.login('admin', 'admin123');
+  await loginAsAdmin(page);
 
   // ---- GO TO SALES ----
   const salesPage = new SalesPage(page);
@@ -22,7 +20,8 @@ test('Verify Delete option is visible for Admin', async ({ page }) => {
   await expect(salesPage.deleteButtons.first()).toBeVisible();
 
   // Exists (count >= 1)
-  await expect(salesPage.deleteButtons).toHaveCount(1);
+  const deleteButtonCount = await salesPage.deleteButtons.count();
+  expect(deleteButtonCount).toBeGreaterThan(1);
 });
 
 

@@ -1,12 +1,10 @@
 const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../../../pages/LoginPage');
 const { SalesPage } = require('../../../pages/SalesPage');
+const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
 test('Delete confirmation popup appears on delete', async ({ page }) => {
-  // ---- LOGIN ----
-  const loginPage = new LoginPage(page);
-  await loginPage.open();
-  await loginPage.login('admin', 'admin123');
+  // ---- LOGIN AS ADMIN ----
+  await loginAsAdmin(page);
 
   // ---- GO TO SALES PAGE ----
   const salesPage = new SalesPage(page);
@@ -16,16 +14,14 @@ test('Delete confirmation popup appears on delete', async ({ page }) => {
 
   // ---- HANDLE CONFIRM DIALOG ----
   page.once('dialog', async (dialog) => {
-    // Verify the dialog message
     expect(dialog.message()).toBe('Are you sure you want to delete this sale?');
-    // Dismiss it (like clicking "Cancel")
-    await dialog.dismiss();
+    await dialog.dismiss(); // Cancel delete
   });
 
-  // Click the first delete button
+  // ---- CLICK DELETE ----
   await salesPage.deleteButtons.first().click();
 
-  // Optional: verify that sale still exists because we dismissed the dialog
+  // ---- VERIFY STILL EXISTS ----
   await expect(salesPage.deleteButtons.first()).toBeVisible();
 });
 
