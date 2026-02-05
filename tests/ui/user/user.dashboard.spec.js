@@ -77,8 +77,9 @@ test.describe('User Dashboard Tests', () => {
     const deleteIcon = page.locator('.bi-trash').first();
   
     // ✅ Delete icon may be visible
-    await expect(deleteIcon).toBeVisible();
-  
+    await expect(deleteIcon).toBeDisabled();
+
+
     // ❌ But User should NOT be able to delete
     // (No click, no confirmation, permission enforced at backend)
   });

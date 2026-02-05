@@ -1,11 +1,22 @@
 module.exports = {
-    default: {
-      paths: ['features/**/*.feature'],
-      require: [
-        'steps/**/*.js',
-        'support/**/*.js'
-      ],
-      publishQuiet: true
-    }
-  };
-  
+  default: {
+    require: [
+      'steps/**/*.js',
+      'support/**/*.js'
+    ],
+  },
+
+  api: {
+    require: [
+      'steps/api/**/*.js',
+      'support/api.hooks.js'
+    ],
+  },
+
+  ui: {
+    require: [
+      'steps/ui/**/*.js',
+      'support/ui.hooks.js'
+    ],
+  },
+};
