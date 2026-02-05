@@ -6,7 +6,7 @@ Before(async function () {
   // API
   await initApi();
 
-  // UI
+  // UI (Cucumber only)
   this.browser = await chromium.launch({ headless: false });
   this.context = await this.browser.newContext({
     baseURL: 'http://localhost:8080',
@@ -15,8 +15,21 @@ Before(async function () {
 });
 
 After(async function () {
+  // ✅ Close page first
+  if (this.page && !this.page.isClosed()) {
+    await this.page.close();
+  }
+
+  // ✅ Close context
+  if (this.context) {
+    await this.context.close();
+  }
+
+  // ✅ Close browser LAST
   if (this.browser) {
     await this.browser.close();
   }
+
+  // API cleanup
   await closeApi();
 });

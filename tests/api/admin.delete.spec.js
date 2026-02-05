@@ -56,14 +56,15 @@ test.describe('Admin Category DELETE API', () => {
   });
 
 
-  test('API-ADMIN-SALE-01: Verify Admin can delete a sale via API', async ({ request }) => {
-    const getResponse = await request.get('/api/sales', {
-      headers: { Authorization: `Bearer ${adminToken}` },
-    });
+  test('API-ADMIN-SALE-01: Verify Admin can delete a sale via API', async () => {
+    // Login inside the test
+    const token = await loginAndGetToken('admin', 'admin123');
+    expect(token).toBeTruthy();
   
-    expect(getResponse.status()).toBe(200);
+    const getResponse = await get('/api/sales', token);
+    expect(getResponse.status).toBe(200);
   
-    const sales = await getResponse.json();
+    const sales = getResponse.data;
   
     if (sales.length === 0) {
       test.skip(true, 'No sales available to delete');
@@ -71,11 +72,8 @@ test.describe('Admin Category DELETE API', () => {
   
     const saleId = sales[0].id;
   
-    const deleteResponse = await request.delete(`/api/sales/${saleId}`, {
-      headers: { Authorization: `Bearer ${adminToken}` },
-    });
-  
-    expect([200, 204]).toContain(deleteResponse.status());
+    const deleteResponse = await del(`/api/sales/${saleId}`, token);
+    expect([200, 204]).toContain(deleteResponse.status);
   });
 
   test('API-ADMIN-CAT-NEG-01: Verify Admin deleting non-existing category', async () => {
