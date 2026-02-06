@@ -1,5 +1,5 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const { AddPlantPageAdmin } = require('../../../pages/AddPlantPageAdmin');
+const { addPlantPageAdmin } = require('../../../pages/addPlantPageAdmin');
 const { loginAsAdmin } = require('../../../utils/authHelper');
 
 Given('I am logged in as an admin', async function () {
@@ -7,7 +7,7 @@ Given('I am logged in as an admin', async function () {
 });
 
 Given('I am on the Add Plant page', async function () {
-  this.addPlantPage = new AddPlantPageAdmin(this.page);
+  this.addPlantPage = new addPlantPageAdmin(this.page);
   await this.addPlantPage.open();
 });
 

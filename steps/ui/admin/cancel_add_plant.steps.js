@@ -1,9 +1,9 @@
 const { When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
-const { AddPlantPageAdmin } = require('../../../pages/AddPlantPageAdmin');
+const { addPlantPageAdmin } = require('../../../pages/addPlantPageAdmin');
 
 When('I open the Add Plant page', async function () {
-  this.addPlantPage = new AddPlantPageAdmin(this.page);
+  this.addPlantPage = new addPlantPageAdmin(this.page);
   await this.addPlantPage.open();
 });
 

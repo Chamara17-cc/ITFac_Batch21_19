@@ -1,31 +1,31 @@
-//UI-USER-PLANT-08 Sort plants by name (Done)
-
 const { test, expect } = require('@playwright/test');
 const { loginAsAdmin } = require('../../../utils/authHelper');
 const { PlantPageUser } = require('../../../pages/plantPageUser');
 
+// This hook runs BEFORE EACH test in this file
 test.beforeEach(async ({ page }) => {
-  // Precondition: user logged in
+
   await loginAsAdmin(page);
 });
 
 test('UI-USER-PLANT-08 | Sort plants by name', async ({ page }) => {
-  const plantPage = new PlantPageUser(page);
 
-  // Precondition: user is on plant list page
+  // This allows access to plant page methods and locators
+  const plantPage = new PlantPageUser(page);
   await plantPage.open();
 
-  // Step 1: Click Name column header
+  // Click the "Name" column header to trigger sorting (A → Z)
   await plantPage.clickNameColumn();
 
-  // Get plant names from UI
+  // Fetch all plant names currently displayed in the UI
   const actualPlantNames = await plantPage.getPlantNames();
 
-  // Create sorted copy (A → Z)
+  // Sort it alphabetically (A → Z) using localeCompare
   const sortedPlantNames = [...actualPlantNames].sort((a, b) =>
     a.localeCompare(b)
   );
 
-  // Assertion
+  // Compare the UI-sorted list with the expected sorted list
+  // If both match, sorting functionality works correctly
   expect(actualPlantNames).toEqual(sortedPlantNames);
 });
