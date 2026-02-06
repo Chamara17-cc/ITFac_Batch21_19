@@ -11,10 +11,10 @@ class SellPlantPage {
   }
 
   // Go to the Sell Plant page
-  async goto() {
-    await this.page.goto('/ui/sales/new');
-    await this.pageTitle.waitFor({ state: 'visible', timeout: 5000 });
-  }
+async goto(baseUrl) {
+  await this.page.goto(`${baseUrl}/ui/sales/new`);
+}
+
 
   // Verify page loaded correctly
   async verifyPageLoaded() {

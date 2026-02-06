@@ -22,9 +22,10 @@ class SalesPage {
   }
 
 
-  async goto() {
-    await this.page.goto('/ui/sales');
+  async goto(baseUrl) {
+  await this.page.goto(`${baseUrl}/ui/sales`);
   }
+
 
   async verifyPageLoaded() {
     await this.pageTitle.waitFor({ timeout: 5000 });

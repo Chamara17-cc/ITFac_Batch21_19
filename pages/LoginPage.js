@@ -8,9 +8,10 @@
             this.submit = 'button[type="submit"]';
         }
 
-        async open() {
-            await this.page.goto(this.url);
+        async open(baseUrl) {
+        await this.page.goto(`${baseUrl}/ui/login`);
         }
+
 
         async login(user, pass) {
             await this.page.fill(this.username, user);
