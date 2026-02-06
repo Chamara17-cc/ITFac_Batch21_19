@@ -1,7 +1,7 @@
 //UI-USER-PLANT-07- Verify reset functionality for search  (Done)
 
 const { test, expect } = require('@playwright/test');
-const { PlantPageUser } = require('../../../pages/PlantPageUser');
+const { PlantPageUser } = require('../../../pages/plantPageUser');
 const { loginAsUser } = require('../../../utils/authHelper');
 
 test('UI-USER-PLANT-07 | Reset search functionality', async ({ page }) => {

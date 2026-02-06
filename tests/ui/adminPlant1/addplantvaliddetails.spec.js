@@ -1,7 +1,7 @@
 //UI-ADMIN-AP-01 - Verify that admin can add a plant using valid inputs (Done)
 
 import { test, expect } from '@playwright/test';
-import { AddPlantPageAdmin } from '../../../pages/AddPlantPageAdmin';
+import { AddPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
 import { loginAsAdmin } from '../../../utils/authHelper';
 
 test('UI-ADMIN-AP-01 | Add plant with valid details', async ({ page }) => {

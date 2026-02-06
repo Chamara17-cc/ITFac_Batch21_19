@@ -2,7 +2,7 @@
 
 const { test, expect } = require('@playwright/test');
 const { loginAsAdmin } = require('../../../utils/authHelper');
-const { PlantPageUser } = require('../../../pages/PlantPageUser');
+const { PlantPageUser } = require('../../../pages/plantPageUser');
 
 test.beforeEach(async ({ page }) => {
   // Precondition: user logged in

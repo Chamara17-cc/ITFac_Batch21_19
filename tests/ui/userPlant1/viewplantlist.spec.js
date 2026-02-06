@@ -1,6 +1,6 @@
 // UI-USER-PLANT-09 | View plant list (Done)
 const { test, expect } = require('@playwright/test');
-const { PlantPageUser } = require('../../../pages/PlantPageUser');
+const { PlantPageUser } = require('../../../pages/plantPageUser');
 const { loginAsUser } = require('../../../utils/authHelper');
 
 test('UI-USER-PLANT-09 | View plant list', async ({ page }) => {

@@ -1,7 +1,7 @@
 //UI-ADMIN-AP-05 - Verify cancel button navigation (Done)
 
 import { test, expect } from '@playwright/test';
-import { AddPlantPageAdmin } from '../../../pages/AddPlantPageAdmin';
+import { AddPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
 import { loginAsAdmin } from '../../../utils/authHelper';
 
 test.beforeEach(async ({ page }) => {

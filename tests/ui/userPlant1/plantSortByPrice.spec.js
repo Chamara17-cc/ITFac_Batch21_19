@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const { loginAsUser } = require('../../../utils/authHelper');
-const { PlantPageUser } = require('../../../pages/PlantPageUser');
+const { PlantPageUser } = require('../../../pages/plantPageUser');
 
 test.describe('User Plants Sorting Tests', () => {
 
