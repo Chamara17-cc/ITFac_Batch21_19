@@ -1,7 +1,7 @@
 //UI-USER-PLANT-06-Verify that edit and delete actions are hidden for user (Done)
 
 const { test, expect } = require('@playwright/test');
-const { PlantPageUser } = require('../../../pages/PlantPageUser');
+const { PlantPageUser } = require('../../../pages/plantPageUser');
 
 const { loginAsUser } = require('../../../utils/authHelper');
 test('UI-USER-PLANT-06 | Hide edit and delete actions for user', async ({ page }) => {

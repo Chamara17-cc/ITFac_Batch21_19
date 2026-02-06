@@ -1,4 +1,4 @@
-const { LoginPage } = require('../pages/LoginPage');
+const { LoginPage } = require('../pages/loginPage');
 const { expect } = require('@playwright/test');
 
 async function loginAsAdmin(page) {

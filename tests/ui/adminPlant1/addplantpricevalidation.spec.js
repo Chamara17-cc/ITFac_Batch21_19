@@ -1,7 +1,7 @@
 //UI-ADMIN-AP-04 - Verify price must be greater than zero (Done)
 
 import { test } from '@playwright/test';
-import { AddPlantPageAdmin } from '../../../pages/AddPlantPageAdmin';
+import { AddPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
 import { loginAsAdmin } from '../../../utils/authHelper';
 
 test.beforeEach(async ({ page }) => {
