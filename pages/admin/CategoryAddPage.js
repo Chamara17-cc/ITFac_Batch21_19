@@ -1,7 +1,7 @@
 class CategoryAddPage {
     constructor(page) {
         this.page = page;
-        this.url = '/ui/categories/add';
+        this.url = 'http://localhost:8080/ui/categories/add';
         this.categoryNameInput = page.locator('form input#name');
         this.saveButton = page.locator('button[type="submit"]');
         this.validationError = page.locator('.invalid-feedback');

@@ -1,7 +1,10 @@
 const { request } = require('@playwright/test');
 
 async function getAdminAuthContext(baseRequest) {
-    const loginResponse = await baseRequest.post(
+    // ✅ Create a temp context for login
+    const loginContext = await baseRequest.newContext();
+
+    const loginResponse = await loginContext.post(
         'http://localhost:8080/api/auth/login',
         {
             data: {
@@ -22,6 +25,9 @@ async function getAdminAuthContext(baseRequest) {
         throw new Error('Token not found in admin login response');
     }
 
+    await loginContext.dispose();
+
+    // ✅ Authenticated API context
     return await request.newContext({
         baseURL: 'http://localhost:8080',
         extraHTTPHeaders: {
@@ -32,14 +38,15 @@ async function getAdminAuthContext(baseRequest) {
     });
 }
 
-
 async function getUserAuthContext(baseRequest) {
-    const loginResponse = await baseRequest.post(
+    const loginContext = await baseRequest.newContext();
+
+    const loginResponse = await loginContext.post(
         'http://localhost:8080/api/auth/login',
         {
             data: {
-                username: 'testuser',       
-                password: 'test123'     
+                username: 'testuser',
+                password: 'test123'
             }
         }
     );
@@ -55,6 +62,8 @@ async function getUserAuthContext(baseRequest) {
         throw new Error('Token not found in user login response');
     }
 
+    await loginContext.dispose();
+
     return await request.newContext({
         baseURL: 'http://localhost:8080',
         extraHTTPHeaders: {
@@ -65,4 +74,7 @@ async function getUserAuthContext(baseRequest) {
     });
 }
 
-module.exports = {getAdminAuthContext,getUserAuthContext};
+module.exports = {
+    getAdminAuthContext,
+    getUserAuthContext
+};
