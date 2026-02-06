@@ -52,7 +52,7 @@ test.describe('Admin Dashboard Navigation Tests', () => {
     // Verify navigation to Categories page
     await expect(page).toHaveURL(/\/ui\/categories/);
 
-    // Optional strong check
+    // Optional strong check Ensures correct page loaded
     await expect(
       page.getByRole('heading', { name: 'Categories' })
     ).toBeVisible();
@@ -76,11 +76,11 @@ test.describe('Admin Category Permission Tests', () => {
       await expect(addCategoryButton).toBeEnabled();
       
 
-  
+        //Confirms permission access
       await expect(addCategoryButton).toBeVisible();
       await expect(addCategoryButton).toBeEnabled();
   
-      // Optional strong check: Categories page loaded
+      // final url cheak
       await expect(page).toHaveURL(/\/ui\/categories/);
     });
   });

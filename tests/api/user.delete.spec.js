@@ -58,7 +58,7 @@ test.describe('User Category DELETE API', () => {
   });
 
   // 🚧 Known backend issue – User can delete sales via API (should be forbidden)
-  test.skip('API-USER-SALE-01: Verify User cannot delete sales record via API', async () => {
+  test('API-USER-SALE-01: Verify User cannot delete sales record via API', async () => {
     const userToken = await loginAndGetToken('testuser', 'test123');
     expect(userToken).toBeTruthy();
 
