@@ -74,7 +74,7 @@ Then('I should be redirected to the sales page', async function () {
 
 Then('new sale should be visible', { timeout: 15_000 }, async function () {
   this.salesPage = new SalesPage(this.page);
-  await this.salesPage.goto(this.baseUrl); // ensure sales page is loaded
+  await this.salesPage.goto(this.baseUrl); 
   await this.salesPage.verifyPageLoaded();
   await expect(this.salesPage.deleteButtons.first()).toBeVisible({ timeout: 10000 });
 });
@@ -104,4 +104,33 @@ Then('Sell Plant button should be visible', async function () {
   await expect(this.salesPage.sellPlantButton).toBeVisible();
   await expect(this.salesPage.sellPlantButton).toHaveText('Sell Plant');
 });
+
+When('I navigate to the previous page', async function () {
+  await this.salesPage.goToPrevPage();
+  await this.page.waitForTimeout(500);
+});
+
+Then('the sales rows on the first page should be visible', async function () {
+  const rowCount = await this.salesPage.getRowCount();
+  expect(rowCount).toBeGreaterThan(0);
+});
+
+When('I go to the Sell Plant page', async function () {
+  this.sellPage = new SellPlantPage(this.page);
+  await this.sellPage.goto(this.baseUrl);
+  await this.sellPage.verifyPageLoaded();
+});
+
+When('I click Cancel', async function () {
+  await this.sellPage.cancel();
+});
+
+Then('I should be redirected back to the sales page', async function () {
+  await expect(this.page).toHaveURL(/\/ui\/sales/);
+});
+
+
+
+
+
 

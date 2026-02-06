@@ -52,3 +52,22 @@ Feature: Sales Page UI
     Given I am logged in as admin
     And I am on the sales page
     Then Sell Plant button should be visible
+
+  #Verify Previous button works for pagination
+  Scenario: Sales pagination previous button works
+    Given I am logged in as admin
+    And I am on the sales page
+    Then pagination should have multiple pages
+    When I navigate to the next page
+    And I navigate to the previous page
+    Then the sales rows on the first page should be visible
+
+  #Verify Cancel button works on Sell Plant page
+  Scenario: Cancel button on Sell Plant page returns to Sales page
+    Given I am logged in as admin
+    When I go to the Sell Plant page
+    And I click Cancel
+    Then I should be redirected back to the sales page
+
+
+
