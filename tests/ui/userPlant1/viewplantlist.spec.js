@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { PlantPageUser } = require('../../../pages/plantPageUser');
+const { plantPageUser } = require('../../../pages/plantPageUser');
 const { loginAsUser } = require('../../../utils/authHelper');
 
 test('UI-USER-PLANT-09 | View plant list', async ({ page }) => {
@@ -7,7 +7,7 @@ test('UI-USER-PLANT-09 | View plant list', async ({ page }) => {
   await loginAsUser(page);
 
   // This gives access to plant page methods and locators
-  const plantPage = new PlantPageUser(page);
+  const plantPage = new plantPageUser(page);
 
   await plantPage.open();
 

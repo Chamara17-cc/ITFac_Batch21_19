@@ -5,7 +5,7 @@
 // - Between 3 and 25 characters (valid)
 
 import { test } from '@playwright/test';
-import { AddPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
+import { addPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
 import { loginAsAdmin } from '../../../utils/authHelper';
 
 // Ensures the admin is logged in before performing actions
@@ -15,7 +15,7 @@ test.beforeEach(async ({ page }) => {
 test('UI-ADMIN-AP-03 | Plant name length validation', async ({ page }) => {
 
   // Pass Playwright page instance
-  const addPlantPage = new AddPlantPageAdmin(page);
+  const addPlantPage = new addPlantPageAdmin(page);
   await addPlantPage.open();
 
   

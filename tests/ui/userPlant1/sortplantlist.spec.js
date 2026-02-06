@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const { loginAsAdmin } = require('../../../utils/authHelper');
-const { PlantPageUser } = require('../../../pages/plantPageUser');
+const { plantPageUser } = require('../../../pages/plantPageUser');
 
 // This hook runs BEFORE EACH test in this file
 test.beforeEach(async ({ page }) => {
@@ -11,7 +11,7 @@ test.beforeEach(async ({ page }) => {
 test('UI-USER-PLANT-08 | Sort plants by name', async ({ page }) => {
 
   // This allows access to plant page methods and locators
-  const plantPage = new PlantPageUser(page);
+  const plantPage = new plantPageUser(page);
   await plantPage.open();
 
   // Click the "Name" column header to trigger sorting (A → Z)

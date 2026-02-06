@@ -3,7 +3,7 @@
 // on the Add Plant page redirects the admin to the Plant List page
 
 import { test, expect } from '@playwright/test';
-import { AddPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
+import { addPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
 import { loginAsAdmin } from '../../../utils/authHelper';
 
 
@@ -17,7 +17,7 @@ test.beforeEach(async ({ page }) => {
 test('UI-ADMIN-AP-05 | Cancel add plant', async ({ page }) => {
 
   // Pass the Playwright page object to the page class
-  const addPlantPage = new AddPlantPageAdmin(page);
+  const addPlantPage = new addPlantPageAdmin(page);
 
   // Open the Add Plant page
  

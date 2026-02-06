@@ -1,7 +1,7 @@
 //UI-ADMIN-AP-01 - Verify that admin can add a plant using valid inputs (Done)
 
 import { test, expect } from '@playwright/test';
-import { AddPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
+import { addPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
 import { loginAsAdmin } from '../../../utils/authHelper';
 
 test('UI-ADMIN-AP-01 | Add plant with valid details', async ({ page }) => {
@@ -10,7 +10,7 @@ test('UI-ADMIN-AP-01 | Add plant with valid details', async ({ page }) => {
   await loginAsAdmin(page);
 
   // 2️⃣ Open Add Plant page
-  const addPlantPage = new AddPlantPageAdmin(page);
+  const addPlantPage = new addPlantPageAdmin(page);
   await addPlantPage.open();
 
   // 🔑 Generate UNIQUE plant name

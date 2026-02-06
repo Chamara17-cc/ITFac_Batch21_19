@@ -1,7 +1,7 @@
 //UI-ADMIN-AP-04 - Verify price must be greater than zero (Done)
 
 import { test } from '@playwright/test';
-import { AddPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
+import { addPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
 import { loginAsAdmin } from '../../../utils/authHelper';
 
 test.beforeEach(async ({ page }) => {
@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('UI-ADMIN-AP-04 | Price validation', async ({ page }) => {
-  const addPlantPage = new AddPlantPageAdmin(page);
+  const addPlantPage = new addPlantPageAdmin(page);
   await addPlantPage.open();
 
   // ✅ CASE 1: Price = 0

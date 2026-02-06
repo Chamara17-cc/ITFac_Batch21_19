@@ -1,7 +1,7 @@
 //UI-ADMIN-AP-02  Verify validation when mandatory fields are empty (Done)
 
 import { test } from '@playwright/test';
-import { AddPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
+import { addPlantPageAdmin } from '../../../pages/addPlantPageAdmin';
 import { loginAsAdmin } from '../../../utils/authHelper';
 
 test('UI-ADMIN-AP-02 | Mandatory field validation', async ({ page }) => {
@@ -9,7 +9,7 @@ test('UI-ADMIN-AP-02 | Mandatory field validation', async ({ page }) => {
   await loginAsAdmin(page);
 
   // 2️⃣ Open Add Plant Page
-  const addPlantPage = new AddPlantPageAdmin(page);
+  const addPlantPage = new addPlantPageAdmin(page);
   await addPlantPage.open();
 
   // 3️⃣ Click Save without entering any data

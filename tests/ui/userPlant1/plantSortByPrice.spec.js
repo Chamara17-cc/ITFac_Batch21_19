@@ -1,17 +1,17 @@
 const { test, expect } = require('@playwright/test');
 const { loginAsUser } = require('../../../utils/authHelper');
-const { PlantPageUser } = require('../../../pages/plantPageUser');
+const { plantPageUser } = require('../../../pages/plantPageUser');
 
 test.describe('User Plants Sorting Tests', () => {
 
   test.beforeEach(async ({ page }) => {
     await loginAsUser(page);
-    const plantPage = new PlantPageUser(page);
+    const plantPage = new plantPageUser(page);
     await plantPage.open();
   });
 
   test('UI-USER-PLANT-01: Verify plants are sorted by price (asc and desc)', async ({ page }) => {
-    const plantPage = new PlantPageUser(page);
+    const plantPage = new plantPageUser(page);
 
     // ---- ASC sort (first click)
     await plantPage.clickPriceColumn();

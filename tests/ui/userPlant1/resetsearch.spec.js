@@ -1,12 +1,12 @@
 const { test, expect } = require('@playwright/test');
-const { PlantPageUser } = require('../../../pages/plantPageUser');
+const { plantPageUser } = require('../../../pages/plantPageUser');
 const { loginAsUser } = require('../../../utils/authHelper');
 
 test('UI-USER-PLANT-07 | Reset search functionality', async ({ page }) => {
   await loginAsUser(page);
 
   // This allows us to reuse page-level actions and locators
-  const plantPage = new PlantPageUser(page);
+  const plantPage = new plantPageUser(page);
   await plantPage.open();
 
   // Search for plants using the keyword "Rose"
