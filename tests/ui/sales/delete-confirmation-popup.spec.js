@@ -2,9 +2,9 @@ const { test, expect } = require('@playwright/test');
 const { SalesPage } = require('../../../pages/SalesPage');
 const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
-test('Delete confirmation popup appears on delete', async ({ page }) => {
+test('Delete confirmation popup appears on delete', async ({ page, baseURL }) => {
   // ---- LOGIN AS ADMIN ----
-  await loginAsAdmin(page);
+  await loginAsAdmin(page, baseURL); // pass baseURL here
 
   // ---- GO TO SALES PAGE ----
   const salesPage = new SalesPage(page);
@@ -24,5 +24,4 @@ test('Delete confirmation popup appears on delete', async ({ page }) => {
   // ---- VERIFY STILL EXISTS ----
   await expect(salesPage.deleteButtons.first()).toBeVisible();
 });
-
 //run: npx playwright test tests/ui/sales/delete-confirmation-popup.spec.js

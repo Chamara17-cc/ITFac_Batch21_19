@@ -5,10 +5,9 @@ const { LoginPage } = require('../../../../pages/LoginPage');
  */
 async function loginAsAdmin(page, baseUrl) {
   const loginPage = new LoginPage(page);
-  await loginPage.open(baseUrl);
+  await loginPage.open(baseUrl); // must pass baseUrl
   await loginPage.login('admin', 'admin123');
 }
-
 
 /**
  * Login as Normal User
