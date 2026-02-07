@@ -2,6 +2,19 @@ module.exports = {
   default: {
     require: [
 <<<<<<< HEAD
+      'step-definitions/**/*.js',
+      'support/**/*.js'
+    ],
+    format: ['progress'],
+    paths: ['features/**/*.feature'],
+    publishQuiet: true,
+    timeout: 20000
+  }
+};
+
+//run - npm run bdd
+=======
+<<<<<<< HEAD
       'support/*.js',
       'step-definitions/**/*.js'
     ],
@@ -41,4 +54,5 @@ module.exports = {
 =======
 >>>>>>> staging
 };
+>>>>>>> staging
 >>>>>>> staging

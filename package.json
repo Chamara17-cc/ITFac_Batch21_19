@@ -2,6 +2,7 @@
   "name": "b21_g19_group",
   "version": "1.0.0",
   "scripts": {
+    "bdd": "cucumber-js"
     "test": "cucumber-js --require support/**/*.js --require step-definitions/**/*.js features/**/*.feature",
     "cucumber": "cucumber-js --require support/**/*.js --require step-definitions/**/*.js features/**/*.feature"
   },
