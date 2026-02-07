@@ -1,6 +1,15 @@
 module.exports = {
   default: {
     require: [
+<<<<<<< HEAD
+      'support/*.js',
+      'step-definitions/**/*.js'
+    ],
+    format: [
+      'progress',
+      'html:reports/cucumber-report.html'
+    ],
+=======
       'steps/**/*.js',
       'support/**/*.js'
     ],
@@ -21,10 +30,15 @@ module.exports = {
     ],
   },
 =======
+>>>>>>> staging
     paths: [
       'features/**/*.feature'
     ],
     publishQuiet: true
   }
+<<<<<<< HEAD
+};
+=======
 >>>>>>> staging
 };
+>>>>>>> staging

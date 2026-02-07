@@ -1,80 +1,44 @@
-const { request } = require('@playwright/test');
+const { request, expect } = require('@playwright/test');
 
-async function getAdminAuthContext(baseRequest) {
-    // ✅ Create a temp context for login
-    const loginContext = await baseRequest.newContext();
+async function getAdminToken() {
+  const api = await request.newContext({
+    baseURL: 'http://localhost:8080'
+  });
 
-    const loginResponse = await loginContext.post(
-        'http://localhost:8080/api/auth/login',
-        {
-            data: {
-                username: 'admin',
-                password: 'admin123'
-            }
-        }
-    );
-
-    if (loginResponse.status() !== 200) {
-        throw new Error(`Admin login failed: ${loginResponse.status()}`);
+  const response = await api.post('/api/auth/login', {
+    data: {
+      username: 'admin',
+      password: 'admin123'
     }
+  });
 
-    const loginBody = await loginResponse.json();
-    const token = loginBody.token || loginBody.accessToken || loginBody.jwt;
+  expect(response.status()).toBe(200);
 
-    if (!token) {
-        throw new Error('Token not found in admin login response');
-    }
-
-    await loginContext.dispose();
-
-    // ✅ Authenticated API context
-    return await request.newContext({
-        baseURL: 'http://localhost:8080',
-        extraHTTPHeaders: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-        }
-    });
+  const body = await response.json();
+  await api.dispose();
+  return body.token;
 }
 
-async function getUserAuthContext(baseRequest) {
-    const loginContext = await baseRequest.newContext();
+async function getUserToken() {
+  const api = await request.newContext({
+    baseURL: 'http://localhost:8080'
+  });
 
-    const loginResponse = await loginContext.post(
-        'http://localhost:8080/api/auth/login',
-        {
-            data: {
-                username: 'testuser',
-                password: 'test123'
-            }
-        }
-    );
-
-    if (loginResponse.status() !== 200) {
-        throw new Error(`User login failed: ${loginResponse.status()}`);
+  const response = await api.post('/api/auth/login', {
+    data: {
+      username: 'testuser',
+      password: 'test123'
     }
+  });
 
-    const loginBody = await loginResponse.json();
-    const token = loginBody.token || loginBody.accessToken || loginBody.jwt;
+  expect(response.status()).toBe(200);
 
-    if (!token) {
-        throw new Error('Token not found in user login response');
-    }
-
-    await loginContext.dispose();
-
-    return await request.newContext({
-        baseURL: 'http://localhost:8080',
-        extraHTTPHeaders: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-        }
-    });
+  const body = await response.json();
+  await api.dispose();
+  return body.token;
 }
 
 module.exports = {
-    getAdminAuthContext,
-    getUserAuthContext
+  getAdminToken,
+  getUserToken
 };
