@@ -6,4 +6,5 @@ Before(async function () {
 
 After(async function () {
   await this.close();
+  await this.cleanup();
 });

@@ -1,18 +1,13 @@
 {
   "name": "b21_g19_group",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "bdd": "cucumber-js"
+    "test": "cucumber-js --require support/**/*.js --require step-definitions/**/*.js features/**/*.feature",
+    "cucumber": "cucumber-js --require support/**/*.js --require step-definitions/**/*.js features/**/*.feature"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@cucumber/cucumber": "^12.6.0",
-    "@playwright/test": "^1.58.0",
-    "cucumber-playwright": "^1.2.1",
-    "playwright": "^1.58.1"
+    "@playwright/test": "^1.58.0"
   }
 }

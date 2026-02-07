@@ -1,17 +1,21 @@
 const { setWorldConstructor } = require('@cucumber/cucumber');
-const { chromium } = require('playwright');
+const { request } = require('@playwright/test');
+const { getAdminAuthContext, getUserAuthContext } = require('../utils/apiAuthHelper');
 
 class CustomWorld {
-  async init() {
-    this.browser = await chromium.launch();
-    this.context = await this.browser.newContext();
-    this.page = await this.context.newPage();
-    this.baseUrl = 'http://localhost:8080';
-  }
+    constructor() {
+        this.response = null;
+        this.categoryName = null;
+    }
 
-  async close() {
-    await this.browser.close();
-  }
+    async getAdminRequest() {
+        // Pass the Playwright request object directly
+        return await getAdminAuthContext(request); // <-- note: request, not this.request
+    }
+
+    async getUserRequest() {
+        return await getUserAuthContext(request);
+    }
 }
 
 setWorldConstructor(CustomWorld);
