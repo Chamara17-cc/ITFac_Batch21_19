@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
-const { loginAsAdmin } = require('../../../utils/authHelper');
-const { CategoryPage } = require('../../../pages/CategoryPage');
+const { loginAsAdmin } = require('../../../../utils/authHelper');
+const { CategoryPage } = require('../../../../pages/admin/CategoryPage');
 
 test.beforeEach(async ({ page }) => {
     await loginAsAdmin(page);
@@ -16,4 +16,3 @@ test('Verify category page loads successfully', async ({ page }) => {
 
     expect(await categotyPage.fetCategoryCount()).toBeGreaterThan(0);
 })
-
