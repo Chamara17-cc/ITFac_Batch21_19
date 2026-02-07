@@ -2,7 +2,8 @@
   "name": "b21_g19_group",
   "version": "1.0.0",
   "scripts": {
-    "cucumber": "npx cucumber-js"
+    "test": "cucumber-js --require support/**/*.js --require step-definitions/**/*.js features/**/*.feature",
+    "cucumber": "cucumber-js --require support/**/*.js --require step-definitions/**/*.js features/**/*.feature"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^12.6.0",
