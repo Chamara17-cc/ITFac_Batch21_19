@@ -4,6 +4,7 @@ module.exports = {
       'steps/**/*.js',
       'support/**/*.js'
     ],
+<<<<<<< HEAD
   },
 
   api: {
@@ -19,4 +20,11 @@ module.exports = {
       'support/ui.hooks.js'
     ],
   },
+=======
+    paths: [
+      'features/**/*.feature'
+    ],
+    publishQuiet: true
+  }
+>>>>>>> staging
 };

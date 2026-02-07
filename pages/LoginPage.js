@@ -2,6 +2,7 @@ class LoginPage {
     constructor(page) {
         this.page = page;
         this.url = '/ui/login';
+        this.url = 'http://localhost:8080/ui/login'; // ✅ FULL URL
 
         this.username = 'input[name="username"]';
         this.password = 'input[name="password"]';

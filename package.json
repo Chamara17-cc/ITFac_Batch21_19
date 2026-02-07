@@ -1,14 +1,10 @@
 {
   "name": "b21_g19_group",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cucumber-js --require support/**/*.js --require step-definitions/**/*.js features/**/*.feature",
+    "cucumber": "cucumber-js --require support/**/*.js --require step-definitions/**/*.js features/**/*.feature"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@cucumber/cucumber": "^12.6.0",
     "@playwright/test": "^1.58.0"
