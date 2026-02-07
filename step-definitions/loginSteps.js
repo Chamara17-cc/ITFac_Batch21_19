@@ -1,7 +1,7 @@
 const { Given, When, Then, After } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 const { chromium } = require('playwright');
-const { LoginPage } = require('../pages/LoginPage');
+const { LoginPage } = require('../pages/loginPage');
 
 let browser, page;
 let loginPage;

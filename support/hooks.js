@@ -1,6 +1,9 @@
-const { Before } = require('@cucumber/cucumber');
+const { Before, After } = require('@cucumber/cucumber');
 
 Before(async function () {
-    // nothing needed here for API tests
+  await this.init();
 });
 
+After(async function () {
+  await this.cleanup();
+});
