@@ -2,17 +2,17 @@ const { test, expect } = require('@playwright/test');
 const { SalesPage } = require('../../../pages/SalesPage');
 const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
-test('Verify "No sales found" message when sales list is empty', async ({ page }) => {
+test('Verify "No sales found" message when sales list is empty', async ({ page, baseURL }) => {
 
   // ---- LOGIN AS ADMIN ----
-  await loginAsAdmin(page);
+  await loginAsAdmin(page, baseURL); 
 
   // ---- GO TO SALES PAGE ----
   const salesPage = new SalesPage(page);
-  await salesPage.goto();
+  await salesPage.goto(baseURL); 
 
-  // ---- VERIFY URL ----
-  await expect(page).toHaveURL(/ui\/sales/);
+  // ---- VERIFY SALES PAGE URL ----
+  await expect(page).toHaveURL(`${baseURL}/ui/sales`);
 
   // ---- GET TABLE ROWS ----
   const rows = page.locator('table tbody tr');
@@ -32,11 +32,8 @@ test('Verify "No sales found" message when sales list is empty', async ({ page }
 
     if (deleteCount > 0) {
       console.log(`Delete buttons available: ${deleteCount}`);
-      // optionally click the first delete button safely
-      // await deleteButtons.first().click();
     } else {
       console.log('No delete buttons found in table rows');
     }
   }
 });
-//run: npx playwright test tests/ui/sales/sales-empty.spec.js

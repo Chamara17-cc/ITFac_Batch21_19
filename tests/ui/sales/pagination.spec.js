@@ -1,20 +1,20 @@
 const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../../../pages/LoginPage');
 const { SalesPage } = require('../../../pages/SalesPage');
 const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
-test('Sales pagination works when records exceed one page', async ({ page }) => {
+test('Sales pagination works when records exceed one page', async ({ page, baseURL }) => {
+
   // ---- LOGIN ----
-  await loginAsAdmin(page);
+  await loginAsAdmin(page, baseURL);
 
   // ---- GO TO SALES PAGE ----
   const salesPage = new SalesPage(page);
-  await salesPage.goto();
+  await salesPage.goto(baseURL);
   await salesPage.verifyPageLoaded();
 
   // ---- VERIFY MULTIPLE PAGES EXIST ----
   const pageCount = await salesPage.paginationItems.count();
-  expect(pageCount).toBeGreaterThan(2); // at least Prev + 2 pages + Next
+  expect(pageCount).toBeGreaterThan(2);
 
   // ---- VERIFY ROWS ON FIRST PAGE ----
   const firstPageRows = await salesPage.getRowCount();
@@ -22,16 +22,13 @@ test('Sales pagination works when records exceed one page', async ({ page }) => 
 
   // ---- CLICK NEXT PAGE ----
   await salesPage.goToNextPage();
-
-  // Wait for table to load new page
-  await page.waitForTimeout(500); // small wait; optionally use network idle
+  await page.waitForLoadState('networkidle');
 
   // ---- VERIFY ROWS ON SECOND PAGE ----
   const secondPageRows = await salesPage.getRowCount();
   expect(secondPageRows).toBeGreaterThan(0);
 
-  // ---- VERIFY URL UPDATED ----
-  await expect(page).toHaveURL(/page=1/);
+  // ---- OPTIONAL: VERIFY URL HAS PAGE PARAM ----
+  await expect(page).toHaveURL(new RegExp('page=1'));
 });
-
 //run: npx playwright test tests/ui/sales/pagination.spec.js

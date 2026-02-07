@@ -1,29 +1,24 @@
 const { test, expect } = require('@playwright/test');
 const { SalesPage } = require('../../../pages/SalesPage');
-const { LoginPage } = require('../../../pages/LoginPage');
 const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
-test('Sales page loads successfully (after login)', async ({ page }) => {
+// Playwright passes test info, including baseURL from config
+test('Sales page loads successfully (after login)', async ({ page, baseURL }) => {
 
-  // Login step
-  await loginAsAdmin(page);
+  // --- Login as Admin ---
+  await loginAsAdmin(page, baseURL);
 
-  // Verify login success
-  await expect(page).toHaveURL(/ui\/dashboard/);
+  // --- Verify login success ---
+  await expect(page).toHaveURL(`${baseURL}/ui/dashboard`);
 
-  // Navigate to Sales page
+  // --- Navigate to Sales page ---
   const salesPage = new SalesPage(page);
-  await salesPage.goto();
-
-  // Verify Sales page URL
-  await expect(page).toHaveURL(/ui\/sales/);
-
-  // Verify Sales page UI loaded
+  await salesPage.goto(baseURL);  
   await salesPage.verifyPageLoaded();
 
-  // Verify page visible
+  // --- Verify Sales page URL ---
+  await expect(page).toHaveURL(`${baseURL}/ui/sales`);
+
+  // --- Verify page body is visible ---
   await expect(page.locator('body')).toBeVisible();
 });
-
-
-//run: npx playwright test tests/ui/sales/sales.spec.js

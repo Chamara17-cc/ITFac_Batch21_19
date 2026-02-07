@@ -2,16 +2,17 @@ const { test, expect } = require('@playwright/test');
 const { SalesPage } = require('../../../pages/SalesPage');
 const { loginAsAdmin } = require('../sales/helpers/auth.helper');
 
-test('Verify Delete option is visible for Admin', async ({ page }) => {
+test('Verify Delete option is visible for Admin', async ({ page, baseURL }) => {
 
   // ---- LOGIN ----
-  await loginAsAdmin(page);
+  await loginAsAdmin(page, baseURL);
 
-  // ---- GO TO SALES ----
+  // ---- GO TO SALES PAGE ----
   const salesPage = new SalesPage(page);
-  await salesPage.goto();
+  await salesPage.goto(baseURL);
 
-  await expect(page).toHaveURL(/ui\/sales/);
+  // ---- VERIFY URL ----
+  await expect(page).toHaveURL(`${baseURL}/ui/sales`);
 
   // ---- VERIFY DELETE BUTTON ----
   await salesPage.verifyDeleteButtonVisible();
@@ -23,7 +24,3 @@ test('Verify Delete option is visible for Admin', async ({ page }) => {
   const deleteButtonCount = await salesPage.deleteButtons.count();
   expect(deleteButtonCount).toBeGreaterThan(1);
 });
-
-
-
-//run: npx playwright test tests/ui/sales/sales-delete-button.spec.js
