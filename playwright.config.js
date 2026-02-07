@@ -3,6 +3,9 @@ const { defineConfig } = require('@playwright/test');
 module.exports = defineConfig({
   testDir: './tests',
 
+  // IMPORTANT: prevents Playwright from touching Cucumber files
+  testMatch: ['**/*.spec.js', '**/*.test.js'],
+
   use: {
     baseURL: 'http://localhost:8080',
     headless: false,
